@@ -19,17 +19,21 @@ import {V0_FEED_MODELS, V0_USER_MODELS} from './controllers/v0/model.index';
 
   app.use(bodyParser.json());
 
-  app.use(cors({
-    allowedHeaders: [
-      'Access-Control-Allow-Origin', "*", 
-      'Origin', 'X-Requested-With',
-      'Content-Type', 'Accept',
-      'X-Access-Token', 'Authorization',
-    ],
-    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-//    origin: "*",
-    origin: config.url,    
-  }));
+  app.use(function(req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content_type, Accept, Authoriztion");
+  next();});
+  
+
+//  app.use(cors({
+//    allowedHeaders: [
+//      'Origin', 'X-Requested-With',
+//      'Content-Type', 'Accept',
+//      'X-Access-Token', 'Authorization',
+//   ],
+//    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+//   origin: config.url,    
+//  }));
 
   app.use('/api/v0/', IndexRouter);
 
